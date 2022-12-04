@@ -3,6 +3,12 @@ package com.davidalejo.app.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +25,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Order {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String number;
@@ -28,4 +36,10 @@ public class Order {
 	private Date orderReceived;
 	
 	private double total;
+	
+	@ManyToOne
+	private User user;
+	
+	@OneToOne(mappedBy = "order")
+	private OrderDetail detail;
 }
