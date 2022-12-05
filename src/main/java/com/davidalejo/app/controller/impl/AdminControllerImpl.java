@@ -15,6 +15,6 @@ public class AdminControllerImpl implements AdminController{
 
 	@GetMapping("")
 	public String home() {
-		return "administrador/home";
+		return "admin/home";
 	}
 }
