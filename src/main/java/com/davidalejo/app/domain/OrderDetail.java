@@ -1,5 +1,6 @@
 package com.davidalejo.app.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,13 +25,17 @@ public class OrderDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	@Column()
 	private String name;
 
+	@Column()
 	private double quantity;
 
+	@Column()
 	private double price;
 
+	@Column()
 	private double total;
 	
 	@OneToOne

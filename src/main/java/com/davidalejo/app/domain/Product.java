@@ -1,5 +1,6 @@
 package com.davidalejo.app.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,14 +25,19 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column()
 	private String name;
 	
+	@Column()
 	private String description;
 	
+	@Column()
 	private String image;
 	
+	@Column()
 	private double price;
 	
+	@Column()
 	private Integer quantity;
 	
 	@ManyToOne

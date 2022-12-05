@@ -2,6 +2,7 @@ package com.davidalejo.app.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,18 +27,25 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(length = 50)
 	private String name;
 	
+	@Column(length = 50)
 	private String username;
 	
+	@Column(length = 25)
 	private String email;
 	
+	@Column(length = 80)
 	private String direction;
 	
+	@Column(length = 10)
 	private String phone;
 	
+	@Column(length = 15)
 	private String type;
 	
+	@Column()
 	private String password;
 	
 	@OneToMany(mappedBy = "user")
