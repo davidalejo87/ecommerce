@@ -23,7 +23,7 @@ import com.davidalejo.app.service.impl.UploadFileService;
 
 @Controller
 @RequestMapping("/products")
-public class ProductControllerImpl{
+public class ProductControllerImpl implements ProductController{
 
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
@@ -60,24 +60,9 @@ public class ProductControllerImpl{
 			// cuando se crea un producto
 			String imageName = upload.saveImage(file);
 			product.setImage(imageName);			
-		}else {
-			if(file.isEmpty()) {
-				//Cuando se modifica el producto pero no cambiamos la imagen
-				
-				Product p = new Product();
-				p = productService.get(product.getId()).get();
-				product.setImage(p.getImage());
-			}else {
-				// Cuando se modifica la imagen con el producto
-				
-				String imageName = upload.saveImage(file);
-				product.setImage(imageName);
-			}
-		}
-		
+		}		
 		
 		productService.save(product);
-		
 		return "redirect:/products";
 	}
 	
@@ -94,17 +79,42 @@ public class ProductControllerImpl{
 	}
 	
 	@PostMapping("/update")
-	public String update(Product product) {
-		productService.update(product);
+	public String update(Product product,@RequestParam("img") MultipartFile file) throws IOException {
+		Product p = new Product();
+		p = productService.get(product.getId()).get();
 		
-		
+		if(file.isEmpty()) {
+			//Cuando se modifica el producto pero no cambiamos la imagen
+			
+			product.setImage(p.getImage());
+		}else {
+			// Cuando se modifica la imagen con el producto
+			
+			
+			// Eliminar cuando la imagen no sea por defecto
+			if(p.getImage().equals("defaul.jpeg")) {
+				upload.deleteImage(p.getImage());
+			}
+			
+			String imageName = upload.saveImage(file);
+			product.setImage(imageName);
+		}
+		product.setUser(p.getUser());
+		productService.update(product);		
 		return "redirect:/products";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) {
-		productService.delete(id);
+		Product p = new Product();
+		p = productService.get(id).get();
 		
+		// Eliminar cuando la imagen no sea por defecto
+		if(p.getImage().equals("defaul.jpeg")) {
+			upload.deleteImage(p.getImage());
+		}
+		
+		productService.delete(id);
 		return "redirect:/products";
 	}
 	
