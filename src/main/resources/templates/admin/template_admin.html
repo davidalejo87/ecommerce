@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>eCommerce</title>
+
+
+</head>
+
+<body>
+<!-- Navigation -->
+<div th:fragment="header">
+	<nav>
+		<div>
+			<a th:href="@{/admin}">eCommerce</a>
+
+			<form method="post" action="#">
+				<input type="search"
+					placeholder="Buscar" aria-label="Search" name="nombre"
+					autocomplete="off">
+				<button type="submit">Buscar</button>
+			</form>
+
+
+			<button type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span></span>
+			</button>
+			<div id="navbarResponsive">
+				<ul>
+					<li><a href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ADMIN </a>
+							
+							<div 
+								aria-labelledby="navbarDropdownMenuLink">
+								<a th:href="@{/products}">Productos</a> 
+								<a th:href="@{/admin/users}">Usuarios</a>
+								<a th:href="@{/admin/orders}">Ordenes</a>
+								<a th:href="@{/user/close}">Salir</a>
+							</div></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+</div>
+
+
+
+<!-- Footer -->
+<div th:fragment="footer">
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Spring
+				eCommerce 2021</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+</div>
+
+
+</body>
+
+</html>
