@@ -1,5 +1,6 @@
 package com.davidalejo.app.controller.impl;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.slf4j.*;
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.davidalejo.app.controller.ProductController;
 import com.davidalejo.app.domain.Product;
 import com.davidalejo.app.domain.User;
 import com.davidalejo.app.service.ProductService;
+import com.davidalejo.app.service.impl.UploadFileService;
 
 
 @Controller
@@ -26,6 +30,9 @@ public class ProductControllerImpl{
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UploadFileService upload;
 	
 	
 	@GetMapping("")
@@ -43,10 +50,32 @@ public class ProductControllerImpl{
 	}
 	
 	@PostMapping("/save")
-	public String save(Product product) {
+	public String save(Product product,@RequestParam("img") MultipartFile file) throws IOException {
 		LOGGER.info("Este es el objeto product {}", product);
 		User u= new User(1,"","","","","","","");
-		product.setUser(u);		
+		product.setUser(u);
+		
+		//image
+		if(product.getId()==null) { 
+			// cuando se crea un producto
+			String imageName = upload.saveImage(file);
+			product.setImage(imageName);			
+		}else {
+			if(file.isEmpty()) {
+				//Cuando se modifica el producto pero no cambiamos la imagen
+				
+				Product p = new Product();
+				p = productService.get(product.getId()).get();
+				product.setImage(p.getImage());
+			}else {
+				// Cuando se modifica la imagen con el producto
+				
+				String imageName = upload.saveImage(file);
+				product.setImage(imageName);
+			}
+		}
+		
+		
 		productService.save(product);
 		
 		return "redirect:/products";

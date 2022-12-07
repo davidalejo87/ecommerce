@@ -1,5 +1,6 @@
 package com.davidalejo.app.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +25,15 @@ public class UploadFileService {
 			return file.getOriginalFilename();
 		}
 		
-		return "";
+		return "default.jpg";
+	}
+	
+	
+	public void deleteImage(String name) {
+		
+		String route = "images//";
+		File file = new File(route + name);
+		file.delete();
+		
 	}
 }
