@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>eCommerce</title>
+
+
+</head>
+
+<body>
+
+	<header th:include="user/user_template.html::header"></header>
+
+	<h1>Vista Producto</h1>
+
+
+	<h1>eCommerce <small>Resumen del pedido</small></h1>
+
+	<ol>
+		<li><a th:href="@{/}">Home</a></li>
+		<li>Pedido</li>
+	</ol>
+
+
+	<div>
+		<div>
+			<h5>
+				DATOS PEDIDO
+			</h5>
+			<h6 th:text="'Nombre :  ' + ${user.name}"> </h6>
+			<h6 th:text="'Email :  ' + ${user.email}"> </h6>
+			<h6 th:text="'Dirección :  ' + ${user.direction}"></h6>
+
+			<h5>PRODUCTOS</h5>
+			<div role="alert">
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Producto</th>
+							<th scope="col">Precio</th>
+							<th scope="col">Cantidad</th>
+							<th scope="col">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="orderDt:${car}">
+							<td th:text="${orderDt.name}"></td>
+							<td th:text="${orderDt.price}"></td>
+							<td th:text="${orderDt.quantity}"></td>
+							<td th:text="${orderDt.total}"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div>
+		<h2>Resumen pedido</h2>
+
+		<ul>
+			<li>
+				<h4 th:text="'Total :  ' + ${order.total}"> </h4>
+			</li>
+			<a href="">Generar</a>
+		</ul>
+	</div>
+
+
+</body>
+
+</html>

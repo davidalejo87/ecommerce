@@ -19,7 +19,9 @@ import com.davidalejo.app.controller.HomeController;
 import com.davidalejo.app.domain.Order;
 import com.davidalejo.app.domain.OrderDetail;
 import com.davidalejo.app.domain.Product;
+import com.davidalejo.app.domain.User;
 import com.davidalejo.app.service.ProductService;
+import com.davidalejo.app.service.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -29,6 +31,10 @@ public class HomeControllerImpl implements HomeController{
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
+	
 	
 	List<OrderDetail> details = new ArrayList<OrderDetail>();
 	
@@ -135,6 +141,23 @@ public class HomeControllerImpl implements HomeController{
 		
 		return "/user/shopping_car";
 	}
+	
+	
+	
+	@GetMapping("/order")
+	public String order(Model model) {
+		
+		User user = userService.findById(1).get();
+		
+		model.addAttribute("car", details);
+		model.addAttribute("order", order);
+		
+		model.addAttribute("user", user);
+		
+		return "user/order_summary";
+	}
+	
+	
 	
 }
 
