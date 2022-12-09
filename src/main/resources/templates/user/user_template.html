@@ -16,11 +16,10 @@
 	<header th:fragment="header">
 		<nav>
 			<div>
-				<a class="navbar-brand" th:href="@{/}">eCommerce</a>
+				<a th:href="@{/}">eCommerce</a>
 	
 				<form method="post" action="">
-					<input type="search" placeholder="Buscar" aria-label="Search" name="nombre"
-						autocomplete="off">
+					<input type="search" placeholder="Buscar" aria-label="Search" name="nombre" autocomplete="off">
 					<button type="submit">Buscar</button>
 				</form>
 			</div>
@@ -29,12 +28,6 @@
 
 	
 	<h1>Hola usuario</h1>
-	<!--  
-	<div th:include="user/template_user.html::header" th:if="${sesion==null}">	
-	</div>
-	
-	<div th:include="user/template_user.html::header-user" th:unless="${sesion==null}"> </div>
-	-->
 	
 	<div class="container">
 
