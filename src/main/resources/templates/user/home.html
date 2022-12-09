@@ -13,23 +13,15 @@
 </head>
 
 <body>
+
+	<header th:include="user/user_template.html::header"></header>
+
 	<h1>Hola usuario</h1>
-	<!--  
-	<div th:include="usuario/template_usuario.html::header" th:if="${sesion==null}">	
-	</div>
-	
-	<div th:include="usuario/template_usuario.html::header-user" th:unless="${sesion==null}"> </div>
-	-->
-	
-	<div class="container">
-
-		<header>
-			<h1>Ecommerce</h1>
-			<p>Tu tienda de productos en Línea</p>
-		</header>
 
 
-				<div>
+	<div>
+
+		<div>
 
 			<div th:each="product: ${products}">
 				<div>
@@ -38,7 +30,7 @@
 						<p th:text="${product.name}"></p>
 					</div>
 					<div>
-						<a href="">Ver producto</a>
+						<a th:href="@{/product_view/{id} (id=${product.id}) }">Ver producto</a>
 					</div>
 				</div>
 			</div>

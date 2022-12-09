@@ -32,17 +32,17 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span></span>
 			</button>
-			<div id="navbarResponsive">
+			<div>
 				<ul>
-					<li><a href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ADMIN </a>
+					<li><a href="#"role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ADMIN </a>
 							
-							<div 
-								aria-labelledby="navbarDropdownMenuLink">
+							<div>
 								<a th:href="@{/products}">Productos</a> 
 								<a th:href="@{/admin/users}">Usuarios</a>
 								<a th:href="@{/admin/orders}">Ordenes</a>
 								<a th:href="@{/user/close}">Salir</a>
-							</div></li>
+							</div>
+					</li>
 				</ul>
 			</div>
 		</div>
