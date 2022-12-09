@@ -60,7 +60,7 @@ public class HomeControllerImpl implements HomeController{
 	
 	
 	@PostMapping("/car")
-	public String addCar(@RequestParam Integer id, @RequestParam Integer quantity, Model model) {
+	public String addProductCar(@RequestParam Integer id, @RequestParam Integer quantity, Model model) {
 		OrderDetail orderDetail = new OrderDetail();
 		Product product = new Product();
 		double sumTotal = 0;
@@ -76,7 +76,16 @@ public class HomeControllerImpl implements HomeController{
 		orderDetail.setTotal(product.getPrice()*quantity);
 		orderDetail.setProduct(product);
 		
-		details.add(orderDetail);
+		// Validar que el producto no se repita en el carrito
+		Integer productId = product.getId();
+		boolean joined = details.stream().anyMatch(p -> p.getProduct().getId() == productId);
+		
+		if(!joined) {
+			details.add(orderDetail);
+		}
+		
+		
+
 		
 		// Sumar el total de lo que añada el usuario al carrito
 		sumTotal = details.stream().mapToDouble(dt->dt.getTotal()).sum();
@@ -89,5 +98,43 @@ public class HomeControllerImpl implements HomeController{
 		
 		return "user/shopping_car";
 	}
+	
+	// Borrar un producto del carrito
+	@GetMapping("delete/car/{id}")
+	public String deleteProductCar(@PathVariable Integer id, Model model) {
+		// Lista nueva de productos
+		List<OrderDetail> newOrder = new ArrayList<OrderDetail>();
+		
+		for(OrderDetail orderDetail: details){
+			if(orderDetail.getProduct().getId() !=id) {
+				newOrder.add(orderDetail);
+			}
+		}
+		
+		// poner los productos restantes en la nueva lista
+		details = newOrder;
+		
+		double sumTotal=0;
+		
+		sumTotal = details.stream().mapToDouble(dt->dt.getTotal()).sum();
+		
+		order.setTotal(sumTotal);
+		model.addAttribute("car", details);
+		model.addAttribute("order", order);
+		
+		
+		return "user/shopping_car";
+	}
+	
+	
+	@GetMapping("/getCar")
+	public String getCar(Model model) {
+		
+		model.addAttribute("car", details);
+		model.addAttribute("order", order);
+		
+		return "/user/shopping_car";
+	}
+	
 }
 

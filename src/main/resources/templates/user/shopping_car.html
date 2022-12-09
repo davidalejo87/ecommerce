@@ -45,7 +45,7 @@
 							<td th:text="${orderDetail.price}"></td>
 							<td th:text="${orderDetail.quantity}"></td>
 							<td th:text="${orderDetail.total}"></td>
-							<td><a href="#">Quitar</a></td>
+							<td><a th:href="@{delete/car/{id}  (id=${orderDetail.product.id})  }">Quitar</a></td>
 						</tr>
 					</tbody>
 				</table>
